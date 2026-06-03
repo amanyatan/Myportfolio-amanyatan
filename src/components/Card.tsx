@@ -93,6 +93,7 @@ const StyledWrapper = styled.div<{ $bgColor: string }>`
     box-shadow: 3px 3px 0 #000000;
     font-weight: 750;
     background: #ffffff;
+    color: #000000;
     transition: all 0.3s ease;
     cursor: pointer;
     text-transform: uppercase;
