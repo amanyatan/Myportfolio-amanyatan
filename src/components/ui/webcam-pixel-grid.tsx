@@ -1,8 +1,5 @@
 import React, { useRef, useEffect, useState, useCallback } from "react";
 
-function cn(...classes: (string | undefined | false | null)[]) {
-  return classes.filter(Boolean).join(" ");
-}
 
 type WebcamPixelGridProps = {
   /** Number of columns in the grid */

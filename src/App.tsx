@@ -6,7 +6,6 @@ import myProfileImage from './assets/Selected Works/MYPROFILE.png';
 import { DraggableCardDemo } from './components/DraggableCardDemo';
 import { WebGLShader } from './components/ui/web-gl-shader';
 import { ProjectsSection } from './components/ProjectsSection';
-import HyperText from './components/ui/hyper-text';
 
 function App() {
   useScrollReveal();

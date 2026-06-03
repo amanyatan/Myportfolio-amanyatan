@@ -1,7 +1,5 @@
-import React from "react";
 import { DraggableCardBody, DraggableCardContainer } from "@/components/ui/draggable-card";
 import { LampContainer } from "@/components/ui/lamp";
-import { motion } from "motion/react";
 
 
 import uiUxImg from "@/assets/Selected Works/services(UI/UX).jpeg";

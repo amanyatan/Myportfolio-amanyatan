@@ -1,5 +1,3 @@
-import React from 'react';
-
 export function WebcamPixelGridDemo() {
   const handleClick = () => {
     const contact = document.querySelector('#contact');
@@ -55,17 +53,8 @@ export function WebcamPixelGridDemo() {
         onMouseUp={e => {
           e.currentTarget.style.transform = "scale(1.03)";
         }}
-        onMouseMoveCapture => {
-          e.cuurentTarget.style.transform = "scale(1.95)";
-        }
-        <div>
-           <span>
-                 button
-                </span> </div>
-                
       >
         LET'S TALK
-
       </button>
     </div>
   );

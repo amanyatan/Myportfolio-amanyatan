@@ -69,7 +69,7 @@ export default function HyperText({
 
     const interval = setInterval(() => {
       if (iteration < maxIterations) {
-        setDisplayText((prev) =>
+        setDisplayText(() =>
           text
             .split("")
             .map((char, i) => {

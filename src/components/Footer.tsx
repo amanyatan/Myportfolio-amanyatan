@@ -1,5 +1,4 @@
 import { RevealText } from "./ui/reveal-text";
-import { motion } from "framer-motion";
 import img1 from "../assets/Selected Works/LET'S TALK ASSETS/Beyonder, KH_ arts.jpg";
 import img2 from "../assets/Selected Works/LET'S TALK ASSETS/Ichigo wallpaper 1.jpg";
 import img3 from "../assets/Selected Works/LET'S TALK ASSETS/With or without a team I’m still gonna win.jpg";
