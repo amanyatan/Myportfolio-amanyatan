@@ -185,9 +185,9 @@ function App() {
                   }}>About</h2>
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-16)' }}>
-                  <p className="reveal stagger-1">We blend high-end visual design with rigorous engineering.</p>
-                  <p className="reveal stagger-2">Specializing in fluid, cinematic scrolling experiences built directly onto modern web stacks targeting absolute smoothness.</p>
-                  <p className="reveal stagger-3">Ensuring every single edge case acts dynamically through precise transform manipulation.</p>
+                  <p className="reveal stagger-1">Full-Stack Developer · UI/UX Designer · Generative &amp; Agentic AI Engineer — crafting end-to-end digital experiences from pixel-perfect interfaces to intelligent, autonomous systems.</p>
+                  <p className="reveal stagger-2">4+ internships across diverse companies, startups &amp; firms — shipping production-grade work and leaving a real-world impact at every stage.</p>
+                  <p className="reveal stagger-3">Relentlessly passionate about everything tech — from pixels to pipelines, always building, always evolving.</p>
                 </div>
               </div>
 
