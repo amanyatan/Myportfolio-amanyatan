@@ -6,6 +6,7 @@ import myProfileImage from './assets/Selected Works/MYPROFILE.png';
 import { DraggableCardDemo } from './components/DraggableCardDemo';
 import { WebGLShader } from './components/ui/web-gl-shader';
 import { ProjectsSection } from './components/ProjectsSection';
+import { Component as RaycastBackground } from './components/ui/raycast-animated-background';
 
 function App() {
   useScrollReveal();
@@ -168,8 +169,11 @@ function App() {
         </div>
 
         {/* 2. About Sticky Panel */}
-        <div id="about" className="stack-panel about">
-          <div className="container" style={{ paddingTop: 'var(--spacing-96)', paddingBottom: 'var(--spacing-128)' }}>
+        <div id="about" className="stack-panel about" style={{ position: 'relative', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
+            <RaycastBackground />
+          </div>
+          <div className="container" style={{ position: 'relative', zIndex: 1, paddingTop: 'var(--spacing-96)', paddingBottom: 'var(--spacing-128)' }}>
             <div className="grid" style={{ alignItems: 'center' }}>
               <div style={{ gridColumn: 'span 6' }}>
                 <div className="reveal">
