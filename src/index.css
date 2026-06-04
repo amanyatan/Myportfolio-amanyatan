@@ -131,25 +131,25 @@ section {
 }
 
 .stack-panel.about {
-  z-index: 2;
-  border-top: 1px solid var(--border);
-  box-shadow: 0 -20px 50px rgba(0,0,0,0.6);
-}
-
-.stack-panel.services {
   z-index: 3;
   border-top: 1px solid var(--border);
   box-shadow: 0 -20px 50px rgba(0,0,0,0.6);
 }
 
-.stack-panel.projects {
+.stack-panel.services {
   z-index: 4;
   border-top: 1px solid var(--border);
   box-shadow: 0 -20px 50px rgba(0,0,0,0.6);
 }
 
-.stack-panel.stunning {
+.stack-panel.projects {
   z-index: 5;
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -20px 50px rgba(0,0,0,0.6);
+}
+
+.stack-panel.stunning {
+  z-index: 6;
   border-top: 1px solid var(--border);
   box-shadow: 0 -20px 50px rgba(0,0,0,0.6);
 }

@@ -1,9 +1,21 @@
+# Render Deployment Configuration (Blueprint Spec)
+# This file tells Render how to build and host the application as a Static Site.
 services:
   - type: web
-    name: my-portfolio
-    env: static
+    name: my-portfolio # Name of the service on the Render Dashboard
+    env: static        # Indica that this is a Static Site (no Node server required)
+    
+    # Build command executed by Render during deployment:
+    # 1. Installs npm dependencies.
+    # 2. Builds the production build via Vite/TypeScript.
     buildCommand: npm install && npm run build
+    
+    # Vite outputs the optimized static bundle into the './dist' directory by default.
+    # This setting tells Render to serve files from this directory.
     staticPublishPath: ./dist
+    
+    # SPA (Single Page Application) Routing:
+    # Rewrites all requests to /index.html so client-side routing works correctly.
     routes:
       - type: rewrite
         source: /*
