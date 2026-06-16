@@ -459,35 +459,180 @@ section {
   transform: translateY(0);
 }
 
-@media (max-width: 768px) {
+/* ============================================
+   RESPONSIVE SYSTEM - Mobile First
+   ============================================ */
+
+/* ---- Hamburger Menu (hidden on desktop) ---- */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  z-index: 200;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.35s var(--ease-expo);
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.97);
+  backdrop-filter: blur(20px);
+  z-index: 150;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-40);
+}
+.nav-mobile-menu.open {
+  display: flex;
+}
+.nav-mobile-menu button {
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: clamp(28px, 8vw, 48px);
+  font-weight: 900;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+.nav-mobile-menu button:hover { opacity: 1; }
+
+/* ---- Tablet (≤ 1024px) ---- */
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 5%;
+  }
+
   .grid {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-40);
+    grid-template-columns: repeat(6, 1fr);
   }
+
   section {
-    padding: var(--spacing-64) 0;
+    padding: var(--spacing-96) 0;
   }
+
+  .project-card.featured .content {
+    padding: var(--spacing-40);
+  }
+}
+
+/* ---- Mobile (≤ 768px) ---- */
+@media (max-width: 768px) {
+  /* ---- Global ---- */
   .cursor-dot, .cursor-outline {
     display: none !important;
   }
   * {
     cursor: auto !important;
   }
-  
-  /* Disable advanced sticky layout for mobile to preserve basic scrolling */
-  .hero-fixed {
-    position: relative;
-    height: 80vh;
+
+  .container {
+    padding: 0 5%;
   }
-  .content-wrapper {
-    margin-top: 0;
+
+  section {
+    padding: var(--spacing-64) 0;
   }
-  
+
+  /* ---- Grid → single column ---- */
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  /* ---- Stack panels: disable sticky on mobile for natural scroll ---- */
+  .stack-panel {
+    position: relative !important;
+    top: auto !important;
+    min-height: auto !important;
+  }
+
+  /* Hero panel keeps full-screen feel */
+  .stack-panel.hero {
+    min-height: 100svh !important;
+    position: relative !important;
+  }
+
+  /* ---- Reveal animations: simpler on mobile ---- */
   .reveal {
-    transform: translateY(30px) scale(1);
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal.slide-right {
+    transform: translateY(24px);
+  }
+  .reveal.active.slide-right {
+    transform: translateY(0);
   }
   .project-card .content-inner {
     transform: translateY(0);
+  }
+
+  /* ---- Project Cards ---- */
+  .project-card .content {
+    padding: var(--spacing-24);
+  }
+  .project-card.featured .content {
+    padding: var(--spacing-24);
+  }
+  .project-card.featured h3 {
+    font-size: clamp(24px, 7vw, 40px) !important;
+  }
+
+  /* ---- Service cards ---- */
+  .card-item {
+    padding: var(--spacing-24);
+  }
+  .card-item:hover {
+    transform: none;
+  }
+}
+
+/* ---- Small Mobile (≤ 480px) ---- */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 4%;
+  }
+
+  h1 {
+    font-size: clamp(32px, 10vw, 60px);
+  }
+
+  h2 {
+    font-size: clamp(22px, 8vw, 40px);
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+    padding: var(--spacing-16) var(--spacing-16);
+  }
+
+  .project-card .content {
+    padding: var(--spacing-16);
   }
 }

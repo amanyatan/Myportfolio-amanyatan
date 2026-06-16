@@ -10,11 +10,11 @@
  * 5. Neo-Brutalism & Modern UI: Bold borders, distinct shadows, and premium interactive elements.
  */
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Lenis from '@studio-freight/lenis';
 import { CustomCursor } from './components/CustomCursor';
 import { useScrollReveal } from './hooks/useScrollReveal';
-import myProfileImage from './assets/Selected Works/MYPROFILE.png';
+import geminiImage from './assets/Gemini_Generated_Image_cs5d5ycs5d5ycs5d.png';
 import { DraggableCardDemo } from './components/DraggableCardDemo';
 import { WebGLShader } from './components/ui/web-gl-shader';
 import { ProjectsSection } from './components/ProjectsSection';
@@ -24,14 +24,33 @@ function App() {
   // Hook to handle scroll reveal animations (adding .active class to .reveal elements)
   useScrollReveal();
 
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigateTo = (selector: string) => {
+    setMenuOpen(false);
+    setTimeout(() => {
+      if (selector === 'top') { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+      else { document.querySelector(selector)?.scrollIntoView({ behavior: 'smooth' }); }
+    }, 200);
+  };
+
   useEffect(() => {
+    // Disable body scroll when mobile menu is open
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    // Skip Lenis on touch devices – native scroll is already smooth
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
     // 1. Initialize Lenis for premium smooth scrolling
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: isMobile ? 1 : 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
-      smoothWheel: true,
+      smoothWheel: !isMobile,
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
@@ -146,49 +165,65 @@ function App() {
       <div className="noise" />
       <CustomCursor />
 
+      {/* ── Mobile Full-Screen Menu Overlay ── */}
+      <div className={`nav-mobile-menu${menuOpen ? ' open' : ''}`}>
+        <button onClick={() => navigateTo('top')}>HOME</button>
+        <button onClick={() => navigateTo('#about')}>WHOAMI</button>
+        <button onClick={() => navigateTo('#projects')}>PROJECTS</button>
+        <button onClick={() => navigateTo('#contact')}>TALK</button>
+      </div>
+
       <div className="stack-container">
         {/* 1. Hero Sticky Panel */}
         <div className="stack-panel hero">
           <WebGLShader />
 
-          {/* Navigation - Restored to top */}
+          {/* Navigation */}
           <nav style={{
             display: 'flex',
             justifyContent: 'space-between',
-            padding: 'var(--spacing-40) 0',
+            padding: 'clamp(16px, 4vw, 40px) 0',
             position: 'absolute',
             top: 0,
             left: '6%',
             right: '6%',
-            zIndex: 10,
+            zIndex: 160,
             textTransform: 'uppercase',
             fontSize: '14px',
             alignItems: 'center'
           }}>
-            <div style={{ fontWeight: 600, letterSpacing: '-0.02em', color: 'var(--text-primary)' }}>
+            <div style={{ fontWeight: 600, letterSpacing: '-0.02em', color: 'var(--text-primary)', fontSize: 'clamp(13px, 2vw, 16px)' }}>
               AMAN©
             </div>
-            <div style={{ display: 'flex', gap: 'var(--spacing-40)', fontWeight: 500 }}>
-              <button onClick={() => window.scrollTo(0, 0)} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit', color: 'var(--text-primary)' }}>HOME?</button>
-              <button onClick={() => { document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' }) }} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>WHOAMI?</button>
-              <button onClick={() => { document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }) }} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>TALK?</button>
-              <button onClick={() => { document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) }} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>PROJECTS?</button>
+
+            {/* Desktop nav links */}
+            <div className="nav-desktop-links" style={{ display: 'flex', gap: 'var(--spacing-40)', fontWeight: 500 }}>
+              <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit', color: 'var(--text-primary)' }}>HOME?</button>
+              <button onClick={() => navigateTo('#about')} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>WHOAMI?</button>
+              <button onClick={() => navigateTo('#contact')} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>TALK?</button>
+              <button onClick={() => navigateTo('#projects')} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>PROJECTS?</button>
             </div>
-            <div style={{ fontWeight: 500, color: 'var(--text-primary)' }}>
-              CDMX 08:33:08 PM
-            </div>
+
+            {/* Hamburger (mobile only) */}
+            <button
+              className={`nav-hamburger${menuOpen ? ' open' : ''}`}
+              onClick={() => setMenuOpen(o => !o)}
+              aria-label="Toggle menu"
+            >
+              <span /><span /><span />
+            </button>
           </nav>
 
-          <div className="container hero-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%', alignItems: 'center', flex: 1 }}>
+          <div className="hero-content" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%', alignItems: 'center', flex: 1, paddingTop: '80px', width: '100%' }}>
             <h1 style={{
-              fontSize: 'clamp(60px, 14vw, 220px)',
+              fontSize: 'clamp(42px, 14vw, 220px)',
               textTransform: 'uppercase',
               letterSpacing: '-0.04em',
               textAlign: 'center',
               margin: 0,
               lineHeight: 1,
-              whiteSpace: 'nowrap',
-              color: 'white'
+              color: 'white',
+              wordBreak: 'break-word'
             }}>
               AMAN YATAN
             </h1>
@@ -197,8 +232,9 @@ function App() {
 
         {/* 3. About Sticky Panel — clean solid background, no animation */}
         <div id="about" className="stack-panel about" style={{ backgroundColor: 'var(--bg-primary)' }}>
-          <div className="container" style={{ paddingTop: 'var(--spacing-96)', paddingBottom: 'var(--spacing-128)' }}>
-            <div className="grid" style={{ alignItems: 'center' }}>
+          <div className="container" style={{ paddingTop: 'clamp(48px, 8vw, 96px)', paddingBottom: 'clamp(48px, 8vw, 128px)' }}>
+            {/* About: text left, image right — stacks vertically on mobile */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 'var(--spacing-24)', alignItems: 'center' }}>
               <div style={{ gridColumn: 'span 6' }}>
                 <div className="reveal">
                   <h2 style={{
@@ -223,7 +259,7 @@ function App() {
 
               <div style={{ gridColumn: 'span 5' }}>
                 <div className="reveal slide-right" style={{ width: '100%', aspectRatio: '9/16', borderRadius: '24px', overflow: 'hidden', border: '1px solid var(--border)' }}>
-                  <img src={myProfileImage} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center -20%' }} alt="Portrait Profile" />
+                  <img src={geminiImage} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} alt="Gemini Generated Profile" />
                 </div>
               </div>
             </div>
