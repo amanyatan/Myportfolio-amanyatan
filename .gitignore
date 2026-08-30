@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Temp / tooling artifacts
+.playwright-mcp/
+tmp-pptr-profile-*/
+mobile-hero.png

@@ -32,6 +32,7 @@ export function DraggableCardDemo() {
       </div>
 
       <DraggableCardContainer
+        className="services-card-container"
         style={{
           position: "relative",
           minHeight: "80vh",
@@ -49,6 +50,7 @@ export function DraggableCardDemo() {
         </div>
 
         <DraggableCardBody
+          className="services-card"
           style={{
             top: "8%",
             left: "15%",
@@ -85,6 +87,7 @@ export function DraggableCardDemo() {
         </DraggableCardBody>
 
         <DraggableCardBody
+          className="services-card"
           style={{
             top: "30%",
             left: "20%",
@@ -121,6 +124,7 @@ export function DraggableCardDemo() {
         </DraggableCardBody>
 
         <DraggableCardBody
+          className="services-card"
           style={{
             top: "4%",
             left: "38%",
@@ -157,6 +161,7 @@ export function DraggableCardDemo() {
         </DraggableCardBody>
 
         <DraggableCardBody
+          className="services-card"
           style={{
             top: "25%",
             left: "54%",

@@ -18,6 +18,7 @@ import geminiImage from './assets/Gemini_Generated_Image_cs5d5ycs5d5ycs5d.png';
 import { DraggableCardDemo } from './components/DraggableCardDemo';
 import { WebGLShader } from './components/ui/web-gl-shader';
 import { ProjectsSection } from './components/ProjectsSection';
+import { TechStackSection } from './components/TechStackSection';
 import { GetInTouch } from './components/GetInTouch';
 
 function App() {
@@ -92,7 +93,7 @@ function App() {
      * Evaluates the current scroll offset relative to each panel's top/bottom bounds
      * and applies a smooth transition (scale, opacity, blur) to content elements.
      */
-    const onScroll = ({ scroll }: any) => {
+    const onScroll = ({ scroll }: { scroll: number }) => {
       const vh = window.innerHeight;
       const panels = document.querySelectorAll('.stack-panel');
 
@@ -110,6 +111,9 @@ function App() {
         const exitStart = offsetTop + offsetHeight - vh;
         const exitEnd = offsetTop + offsetHeight;
 
+        const isMobile = window.innerWidth <= 768;
+        const blurValue = (px: number) => (isMobile ? 'none' : `blur(${px}px)`);
+
         contentElements.forEach((el) => {
           const contentEl = el as HTMLElement;
           contentEl.style.willChange = 'transform, opacity, filter';
@@ -119,34 +123,32 @@ function App() {
             const progress = (scroll - enterStart) / (enterEnd - enterStart);
             const scale = 0.9 + (progress * 0.1);
             const opacity = Math.min(1, progress * 1.5);
-            const blur = (1 - progress) * 15;
 
             contentEl.style.transform = `scale(${scale})`;
             contentEl.style.opacity = `${opacity}`;
-            contentEl.style.filter = `blur(${blur}px)`;
+            contentEl.style.filter = blurValue((1 - progress) * 15);
           }
           else if (scroll > exitStart && scroll <= exitEnd) {
             // B. EXITING STATE: Panel is being covered/overlapped by the next incoming panel
             const progress = (scroll - exitStart) / (exitEnd - exitStart);
             const scale = 1 + (progress * 0.05);
             const opacity = Math.max(0, 1 - (progress * 1.2));
-            const blur = progress * 15;
 
             contentEl.style.transform = `scale(${scale})`;
             contentEl.style.opacity = `${opacity}`;
-            contentEl.style.filter = `blur(${blur}px)`;
+            contentEl.style.filter = blurValue(progress * 15);
           }
           else if (scroll > enterEnd && scroll <= exitStart) {
             // C. ACTIVE/FOCUS STATE: Panel is fully visible in viewport
             contentEl.style.transform = `scale(1)`;
             contentEl.style.opacity = `1`;
-            contentEl.style.filter = `blur(0px)`;
+            contentEl.style.filter = blurValue(0);
           }
           else {
             // D. OFF-SCREEN STATE: Panel is out of view (hidden)
             contentEl.style.transform = `scale(0.9)`;
             contentEl.style.opacity = '0';
-            contentEl.style.filter = `blur(15px)`;
+            contentEl.style.filter = blurValue(15);
           }
         });
       });
@@ -169,6 +171,7 @@ function App() {
       <div className={`nav-mobile-menu${menuOpen ? ' open' : ''}`}>
         <button onClick={() => navigateTo('top')}>HOME</button>
         <button onClick={() => navigateTo('#about')}>WHOAMI</button>
+        <button onClick={() => navigateTo('#techstack')}>TECHSTACK</button>
         <button onClick={() => navigateTo('#projects')}>PROJECTS</button>
         <button onClick={() => navigateTo('#contact')}>TALK</button>
       </div>
@@ -200,8 +203,9 @@ function App() {
             <div className="nav-desktop-links" style={{ display: 'flex', gap: 'var(--spacing-40)', fontWeight: 500 }}>
               <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit', color: 'var(--text-primary)' }}>HOME?</button>
               <button onClick={() => navigateTo('#about')} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>WHOAMI?</button>
-              <button onClick={() => navigateTo('#contact')} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>TALK?</button>
+              <button onClick={() => navigateTo('#techstack')} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>TECHSTACK?</button>
               <button onClick={() => navigateTo('#projects')} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>PROJECTS?</button>
+              <button onClick={() => navigateTo('#contact')} className="link-underline" style={{ background: 'none', border: 'none', fontSize: 'inherit', fontFamily: 'Inter', textTransform: 'inherit' }}>TALK?</button>
             </div>
 
             {/* Hamburger (mobile only) */}
@@ -234,7 +238,7 @@ function App() {
         <div id="about" className="stack-panel about" style={{ backgroundColor: 'var(--bg-primary)' }}>
           <div className="container" style={{ paddingTop: 'clamp(48px, 8vw, 96px)', paddingBottom: 'clamp(48px, 8vw, 128px)' }}>
             {/* About: text left, image right — stacks vertically on mobile */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gap: 'var(--spacing-24)', alignItems: 'center' }}>
+              <div className="about-grid">
               <div style={{ gridColumn: 'span 6' }}>
                 <div className="reveal">
                   <h2 style={{
@@ -267,7 +271,10 @@ function App() {
         </div>
 
 
-        {/* 3. Services Sticky Panel */}
+        {/* 3.5 My Techstack Sticky Panel */}
+        <TechStackSection />
+
+        {/* 4. Services Sticky Panel */}
         <div className="stack-panel services" style={{ backgroundColor: 'var(--bg-primary)' }}>
           <div className="container">
             <DraggableCardDemo />
