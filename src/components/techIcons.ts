@@ -5,11 +5,6 @@ interface TechIcon {
 }
 
 export const techIcons: Record<string, TechIcon> = {
-  cplusplus: {
-    name: 'C++',
-    hex: 'f34b7d',
-    path: 'M12 2a10 10 0 1 0 0-20A10 10 0 1 0 12 2z',
-  },
   python: {
     name: 'Python',
     hex: '3776ab',
