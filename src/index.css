@@ -170,41 +170,6 @@ section {
 
 /* TechStack section */
 
-/* TechStack — scroll text animation (marquee) */
-.tech-marquee {
-  width: 100%;
-  overflow: hidden;
-  white-space: nowrap;
-  margin-bottom: clamp(28px, 4vw, 52px);
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  user-select: none;
-}
-
-.tech-marquee-track {
-  display: inline-flex;
-  align-items: center;
-  width: max-content;
-  animation: techMarquee 28s linear infinite;
-  will-change: transform;
-}
-
-.tech-marquee-content {
-  display: inline-block;
-  padding-right: 56px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: clamp(18px, 2.6vw, 34px);
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: rgba(255, 255, 255, 0.5);
-}
-
-@keyframes techMarquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
 /* TechStack — independent SVG logo tiles (curved, not circular) */
 .techstack-category {
   margin-bottom: clamp(20px, 3vw, 36px);

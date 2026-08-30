@@ -106,11 +106,6 @@ const TECH_CATEGORIES: TechCategory[] = [
   },
 ];
 
-// Scrolling text for the marquee animation
-const MARQUEE_TEXT =
-  TECH_CATEGORIES.flatMap((c) => c.items.map((i) => i.name)).join(' ✦ ') +
-  ' ✦ ';
-
 export const TechStackSection: React.FC = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -176,14 +171,6 @@ export const TechStackSection: React.FC = () => {
         >
           TECH STACK
         </h1>
-
-        {/* Scroll text animation — infinite marquee of tech names */}
-        <div className="tech-marquee reveal" aria-hidden="true">
-          <div className="tech-marquee-track">
-            <span className="tech-marquee-content">{MARQUEE_TEXT}</span>
-            <span className="tech-marquee-content">{MARQUEE_TEXT}</span>
-          </div>
-        </div>
 
         <div
           className="techstack-grid reveal stagger-1"
