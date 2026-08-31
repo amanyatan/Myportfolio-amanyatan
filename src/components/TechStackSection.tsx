@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import resumeImage from '@/assets/Resume.png';
 
-// ── Independent SVG logos from src/assets/ALLMYTECHSTACK ─────────────
+// â”€â”€ Independent SVG logos from src/assets/ALLMYTECHSTACK â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // Languages
 import pythonIcon from '@/assets/ALLMYTECHSTACK/Languages/python.svg';
 import cplusplusIcon from '@/assets/ALLMYTECHSTACK/Languages/cplusplus.svg';
@@ -41,6 +41,7 @@ interface TechItem {
   name: string;
   sub: string;
   icon: string;
+  link: string;
 }
 
 interface TechCategory {
@@ -54,54 +55,54 @@ const TECH_CATEGORIES: TechCategory[] = [
     title: 'Languages',
     sub: 'Core programming languages',
     items: [
-      { name: 'Python', sub: 'AI · Data · Scripting', icon: pythonIcon },
-      { name: 'C++', sub: 'High-performance', icon: cplusplusIcon },
-      { name: 'JavaScript', sub: 'Web interactivity', icon: javascriptIcon },
+      { name: 'Python', sub: 'AI Â· Data Â· Scripting', icon: pythonIcon, link: 'https://docs.python.org/3/' },
+      { name: 'C++', sub: 'High-performance', icon: cplusplusIcon, link: 'https://en.cppreference.com/w/' },
+      { name: 'JavaScript', sub: 'Web interactivity', icon: javascriptIcon, link: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript' },
     ],
   },
   {
     title: 'Full-Stack',
-    sub: 'Frontend · backend · databases',
+    sub: 'Frontend Â· backend Â· databases',
     items: [
-      { name: 'React', sub: 'UI components', icon: reactIcon },
-      { name: 'Next.js', sub: 'Full-stack framework', icon: nextjsIcon },
-      { name: 'Node.js', sub: 'Server runtime', icon: nodejsIcon },
-      { name: 'PostgreSQL', sub: 'Relational database', icon: postgresqlIcon },
-      { name: 'MongoDB', sub: 'NoSQL database', icon: mongodbIcon },
-      { name: 'Three.js', sub: '3D · WebGL', icon: threedotjsIcon },
+      { name: 'React', sub: 'UI components', icon: reactIcon, link: 'https://react.dev/' },
+      { name: 'Next.js', sub: 'Full-stack framework', icon: nextjsIcon, link: 'https://nextjs.org/docs' },
+      { name: 'Node.js', sub: 'Server runtime', icon: nodejsIcon, link: 'https://nodejs.org/docs/' },
+      { name: 'PostgreSQL', sub: 'Relational database', icon: postgresqlIcon, link: 'https://www.postgresql.org/docs/' },
+      { name: 'MongoDB', sub: 'NoSQL database', icon: mongodbIcon, link: 'https://www.mongodb.com/docs/' },
+      { name: 'Three.js', sub: '3D Â· WebGL', icon: threedotjsIcon, link: 'https://threejs.org/docs/' },
     ],
   },
   {
     title: 'UIUX',
     sub: 'Design & prototyping',
     items: [
-      { name: 'Figma', sub: 'UI/UX design', icon: figmaIcon },
-      { name: 'Framer', sub: 'Interactive design', icon: framerIcon },
+      { name: 'Figma', sub: 'UI/UX design', icon: figmaIcon, link: 'https://www.figma.com/community/docs' },
+      { name: 'Framer', sub: 'Interactive design', icon: framerIcon, link: 'https://www.framer.com/docs/' },
     ],
   },
   {
     title: 'Tools',
     sub: 'Dev, cloud & automation',
     items: [
-      { name: 'Git', sub: 'Version control', icon: gitIcon },
-      { name: 'GitHub', sub: 'Collaboration', icon: githubIcon },
-      { name: 'Docker', sub: 'Containerization', icon: dockerIcon },
-      { name: 'Vercel', sub: 'Deployment', icon: vercelIcon },
-      { name: 'Render', sub: 'Cloud hosting', icon: renderIcon },
-      { name: 'n8n', sub: 'Workflow automation', icon: n8nIcon },
-      { name: 'NumPy', sub: 'Numerical computing', icon: numpyIcon },
-      { name: 'PyTorch', sub: 'Deep learning', icon: pytorchIcon },
-      { name: 'TensorFlow', sub: 'ML framework', icon: tensorflowIcon },
+      { name: 'Git', sub: 'Version control', icon: gitIcon, link: 'https://git-scm.com/doc' },
+      { name: 'GitHub', sub: 'Collaboration', icon: githubIcon, link: 'https://docs.github.com/' },
+      { name: 'Docker', sub: 'Containerization', icon: dockerIcon, link: 'https://docs.docker.com/' },
+      { name: 'Vercel', sub: 'Deployment', icon: vercelIcon, link: 'https://vercel.com/docs' },
+      { name: 'Render', sub: 'Cloud hosting', icon: renderIcon, link: 'https://render.com/docs' },
+      { name: 'n8n', sub: 'Workflow automation', icon: n8nIcon, link: 'https://docs.n8n.io/' },
+      { name: 'NumPy', sub: 'Numerical computing', icon: numpyIcon, link: 'https://numpy.org/doc/' },
+      { name: 'PyTorch', sub: 'Deep learning', icon: pytorchIcon, link: 'https://pytorch.org/docs/' },
+      { name: 'TensorFlow', sub: 'ML framework', icon: tensorflowIcon, link: 'https://www.tensorflow.org/' },
     ],
   },
   {
     title: 'Microservices',
     sub: 'Backend services & AI infra',
     items: [
-      { name: 'Redis', sub: 'Cache · queue', icon: redisIcon },
-      { name: 'LangGraph', sub: 'Agent workflows', icon: langgraphIcon },
-      { name: 'Twilio', sub: 'Communication APIs', icon: twilioIcon },
-      { name: 'Hugging Face', sub: 'AI models & hub', icon: huggingfaceIcon },
+      { name: 'Redis', sub: 'Cache Â· queue', icon: redisIcon, link: 'https://redis.io/documentation' },
+      { name: 'LangGraph', sub: 'Agent workflows', icon: langgraphIcon, link: 'https://langchain-ai.github.io/langgraph/' },
+      { name: 'Twilio', sub: 'Communication APIs', icon: twilioIcon, link: 'https://www.twilio.com/docs/' },
+      { name: 'Hugging Face', sub: 'AI models & hub', icon: huggingfaceIcon, link: 'https://huggingface.co/docs/' },
     ],
   },
 ];
@@ -181,7 +182,7 @@ export const TechStackSection: React.FC = () => {
             alignItems: 'start',
           }}
         >
-          {/* LEFT: tech categories — standalone SVG logos + name & sub-heading */}
+          {/* LEFT: tech categories â€” standalone SVG logos + name & sub-heading */}
           <div className="techstack-categories">
             {TECH_CATEGORIES.map((category, ci) => (
               <div
@@ -195,13 +196,20 @@ export const TechStackSection: React.FC = () => {
                 <div className="tech-logo-grid">
                   {category.items.map((item) => (
                     <div className="tech-logo-item" key={item.name}>
-                      <img
-                        className="tech-logo-img"
-                        src={item.icon}
-                        alt={item.name}
-                        loading="lazy"
-                        draggable={false}
-                      />
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Learn more about ${item.name} (opens in new tab)`}
+                      >
+                        <img
+                          className="tech-logo-img"
+                          src={item.icon}
+                          alt={item.name}
+                          loading="lazy"
+                          draggable={false}
+                        />
+                      </a>
                     </div>
                   ))}
                 </div>
